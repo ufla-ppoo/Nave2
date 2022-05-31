@@ -90,7 +90,7 @@ Dicas:
 - Estude o uso do objeto da classe Random que é usado na classe Inimigo.
 - Repare em todos os lugares que o atributo random é usado e veja o que precisará ser feito igual na classe Nave.
 
-### Deixando o jogo mais difícil
+### 6. Deixando o jogo mais difícil
 
 A gente facilitou as coisas colocando os escudos.
 - Agora vamos dificultar um pouco.
