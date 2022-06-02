@@ -18,6 +18,8 @@ Em seguida, execute o jogo com o comando:
 java JogoNave
 ```
 
+<img src="imagens/screenshot.png" width="400">
+
 ## Como jogar
 
 A dinâmica do jogo é simples.
