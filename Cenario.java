@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;
 import java.util.*;
-import java.util.Timer;
 import java.awt.event.*;
 import javax.imageio.*;
 import java.io.File;
@@ -10,8 +9,7 @@ import java.io.File;
 /**
  * Trata o cenario visual do jogo da nave
  * 
- * @author Júlio César Alves
- * @version 2016-04-08
+ * @author Julio César Alves
  */
 public class Cenario
 {
@@ -50,12 +48,6 @@ public class Cenario
     private boolean jogoTerminou;
     // indica se o jogador perdeu, mas jogo pode continuar
     private boolean gameOver;
-    
-    // objeto para controlar o tempo
-    private Timer timer;
-    
-    // indica a direção atual da nave do jogador
-    private int direcaoNave;
     
     // objetos para as imagens usadas no jogo
     private BufferedImage imgNave;
@@ -150,10 +142,7 @@ public class Cenario
      * Inicializa os controles do jogo
      */
     private void inicializar()
-    {
-        // indica que a direcao atual da nave do jogador é indefinida
-        direcaoNave = KeyEvent.VK_UNDEFINED;
-        
+    {        
         // reinicia a nave e o jogador
         nave.inicializar();
         reiniciarInimigo();
@@ -439,17 +428,20 @@ public class Cenario
         private void desenharMensagensGerais(Graphics g)
         {
             // escreve informacoes basicas do jogo
-            String mensagem = "";
+            String mensagem1 = "";
+            String mensagem2 = "";
             boolean temMensagem = true;
             
             if (gameOver)
             {
-                mensagem = "GAME OVER!!!  F2 para reiniciar...";
+                mensagem1 = "GAME OVER!!!";
+                mensagem2 = "F2 para reiniciar...";
                 
             }
             else if (jogoPausado)
             {
-                mensagem = "ENTER para continuar";
+                mensagem1 = "ENTER para pausar/continuar";
+                mensagem2 = "Ctrl para atirar";
             }
             else
             {
@@ -466,7 +458,8 @@ public class Cenario
                 g.fillRoundRect(posX - 30, posY - 30, 300, 50, 10, 10);
                 
                 g.setColor(Color.WHITE);
-                g.drawString(mensagem, posX, posY);
+                g.drawString(mensagem1, posX, posY-10);
+                g.drawString(mensagem2, posX, posY+10);
             }
             
             // desenhas informacoes de desenvolvimento
