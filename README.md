@@ -20,6 +20,12 @@ java JogoNave
 
 <img src="imagens/screenshot.png" width="400">
 
+## Versão com herança
+O jogo possui uma versão criada utilizando herança, essa versão permite que a replicação de códigos seja reduzida, para acessar deve-se alterar para a branch
+```
+versao-com-heranca
+```
+
 ## Como jogar
 
 A dinâmica do jogo é simples.

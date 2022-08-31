@@ -192,7 +192,7 @@ public class Cenario
             tratarColisaoTiros();
             
             // se o inimigo estiver vivo
-            if (inimigo.estaVivo())
+            if (inimigo.estaViva())
             {
                 // executa a inteligência artificial do inimigo
                 Tiro tiro = inimigo.executarIA();
@@ -322,14 +322,14 @@ public class Cenario
                 }
             }
             // se o tiro e da nave do jogador e se colidiu com o inimigo (vivo), trata o tiro tomado pelo inimigo e indica que o tiro sera excluído
-            else if (inimigo.estaVivo() && !tiro.getEhDoInimigo() && 
+            else if (inimigo.estaViva() && !tiro.getEhDoInimigo() &&
                      colisaoPontoRetangulo(tiro.getPosX(), tiro.getPosY(), tiro.getPosX()+tiro.getLargura(), tiro.getPosY()+tiro.getAltura(),
                                            inimigo.getPosX(), inimigo.getPosY(), inimigo.getPosX()+inimigo.getLargura(), inimigo.getPosY()+inimigo.getAltura()))
             {
                 inimigo.tomarTiro();                                                
                 tirosARemover.add(tiro);
                                 
-                if (!inimigo.estaVivo())
+                if (!inimigo.estaViva())
                 {
                     tempoUltimoInimigoMorto = tempo;
                     placar.contarMorteInimigo();
@@ -497,7 +497,7 @@ public class Cenario
          */
         private void desenharInimigo(Graphics g)
         {            
-            if (inimigo.estaVivo())
+            if (inimigo.estaViva())
             {
                 g.drawImage(imgInimigo, inimigo.getPosX(), inimigo.getPosY(),null);
             }

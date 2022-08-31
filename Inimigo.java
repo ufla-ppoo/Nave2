@@ -5,26 +5,13 @@ import java.util.Random;
  *  
  * @author Julio Cesar Alves
  * @version 2016-08-04
+ *
  */
-public class Inimigo
+public class Inimigo extends Naves
 {
-    // posicao do inimigo na tela
-    private int posX;
-    private int posY;
-    
-    // velocidade do inimigo ao mover (em pixels)
-    private int velocidade;
-    
-    // dimensoes do inimigo
-    private int largura;
-    private int altura;
-    
-    // indica se o inimigo esta vivo
-    private boolean estaVivo;
-    
     // indica se o inimigo esta se movendo para cima ou para baixo
     private boolean movendoPraCima;
-    
+
     // posicao Y máxima que o inimigo pode ir, assume zero como minima (para que ele nao saia da tela)
     private int posYMax;
     
@@ -37,144 +24,59 @@ public class Inimigo
 
     /**
      * Contrói um inimigo e atribui suas características padrões
-     *      
      */
     public Inimigo()
     {
         // cria o objeto gerador de números aleatórios
         random = new Random();
-        
-        // tamanho padrão do inimigo
-        largura = 50;
-        altura = 50;
-        
         posYMax = 100;
         
-        // reinicia as característas da nave
-        inicializar(posX, posYMax);                
+        // reinicia as característas da nave, utilizando o inicializar da classe pai, juntamente com as variavéis
+        //únicas da classe "Inimigo"
+        inicializar(getPosX(), posYMax);
+        setPosYMax(posYMax);
+        movendoPraCima=false;
+        posYAlvo = 200;
     }
         
     /**
      * Reinicia as caracteristivas do inimigo (quando recomeça o jogo, por exemplo)
      * 
      * @param fixedPosX posicao fixa da nave na vertical
-     * @param posYMax valor maximo da posição X (para a nave nao sair da tela)
+     * @param yMax valor maximo da posição X (para a nave nao sair da tela)
      */
-    public void inicializar(int fixedPosX, int yMax)
+    @Override
+   public void inicializar(int fixedPosX, int yMax)
     {
-        // define a posicao X fixa e o valor maximo de posicao Y.
-        posX = fixedPosX;
+        super.inicializar(fixedPosX,yMax);
         posYMax = yMax;
-
-        velocidade = 15;        
-        posY = 200;
-        posYAlvo = posY;
-        
-        estaVivo = true;
+        posYAlvo = 200;
         movendoPraCima = false;                        
     }
-    
-    /**
-     * Retorna a posicao X do inimigo na tela
-     */
-    public int getPosX()
-    {
-        return posX;
-    }
-    
-    /**
-     * Retorna a posicao Y do inimigo na tela
-     */
-    public int getPosY()
-    {
-        return posY;
-    }
-    
-    /**
-     * Retorna se o inimigo esta vivo
-     */
-    public boolean estaVivo()
-    {
-        return estaVivo;
-    }
-    
-    /**
-     * Retorna a largura do inimigo
-     */
-    public int getLargura()
-    {
-        return largura;
-    }
-    
-    /**
-     * Retorna a altura do inimigo
-     */
-    public int getAltura()
-    {
-        return altura;
-    }  
-    
-    /**
-     * Altera as dimensoes do inimigo (para que ele fique do tamanho da figura que o representa)
-     * 
-     * @param largura nova largura do inimigo
-     * @param altura nova altura do inimigo
-     */
-    public void alterarTamanho(int largura, int altura)
-    {
-        this.largura = largura;
-        this.altura = altura;
-    }   
 
-    /**
-     * Move o inimigo pra cima, se ele estiver vivo
-     */
-    public void moverCima()
-    {
-        if (estaVivo)
-        {
-            posY -= velocidade;
-        }
-    }
-
-    /**
-     * Move o inimigo pra baixo, se ele estiver vivo
-     */
-    public void moverBaixo()
-    {
-        if (estaVivo)
-        {
-            posY += velocidade;
-        }
-    }
-    
-    
     /**
      * Realiza um tiro do inimigo, se ele estiver vivo
-     * 
      * @return Retorna o tiro criado, ou null se o inimigo nao atirou
      */
+    @Override
     public Tiro atirar()
     {  
-        if (estaVivo)
+        if (estaViva())
         {
-            return new Tiro(posX, posY + (int)(altura/2), true);
+            return new Tiro(getPosX(), getPosY() + (int)(getAltura()/2), true);
         }
         else
         {
             return null;
         }
     }
-    
+
     /**
-     * Trata quando o inimigo toma um tiro, se ele estiver vivo
+     * Atribui a posição máxima que o inimigo pode alcançar
+     * @param posYMax
      */
-    public void tomarTiro()
-    {
-        if (estaVivo)
-        {
-            estaVivo = false; // morre
-        }
+    public void setPosYMax(int posYMax) {
+        this.posYMax = posYMax;
     }
     
     /**
@@ -186,7 +88,7 @@ public class Inimigo
     {
         Tiro tiro = null;
         
-        if (estaVivo)
+        if (estaViva())
         {
             // realiza a movimentação do inimigo
             movimentar();
@@ -208,25 +110,25 @@ public class Inimigo
     private void movimentar()
     {
         // se o inimigo esta se movendo pra cima e ainda nao alcancou a posicao alvo
-        if (movendoPraCima && (posY > posYAlvo))
+        if (movendoPraCima && (getPosY() > posYAlvo))
         {
             // continua se movendo pra cima
             moverCima();
         }
         // se o inimigo esta se movendo pra baixo e ainda nao alcancou a posicao alvo
-        else if (!movendoPraCima && (posY < posYAlvo))        
+        else if (!movendoPraCima && (getPosY() < posYAlvo))
         {
             // continua se movendo pra baixo
             moverBaixo();
         }
         // se a nave esta se movendo pra cima e passou da posicao alvo, ou movendo pra baixo e tambem passou da posição alvo
-        else if ((movendoPraCima && (posY <= posYAlvo)) || (!movendoPraCima && (posY >= posYAlvo)))
+        else if ((movendoPraCima && (getPosY() <= posYAlvo)) || (!movendoPraCima && (getPosY() >= posYAlvo)))
         {
             // sorteia uma nova posicao alvo
             posYAlvo = random.nextInt(posYMax);
             
             // descobre se deve movimentar pra cima ou pra baixo para alcancar a nova posicao alvo
-            movendoPraCima = (posYAlvo < posY);
+            movendoPraCima = (posYAlvo < getPosY());
         }
     }
 }

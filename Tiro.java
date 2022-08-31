@@ -24,9 +24,9 @@ public class Tiro
     /**
      * Constroi um tiro na posicao passada e com velocidade padrao
      * 
-     * @param posX posicao X inicial do tiro
-     * @param posY posicao Y inicial do tiro
-     * @param ehDoInimigo indica se eh um tiro dado pelo inimigo, caso contrario sera do jogador
+     * @param x posicao X inicial do tiro
+     * @param y posicao Y inicial do tiro
+     * @param tiroDoInimigo indica se eh um tiro dado pelo inimigo, caso contrario sera do jogador
      */
     public Tiro(int x, int y, boolean tiroDoInimigo)
     {
