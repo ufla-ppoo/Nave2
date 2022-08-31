@@ -58,12 +58,8 @@ public class Cenario
 
     /**
      * Constroi o cenario com a nave e o inimigo passados (cria os objetos fixos, mas nao inicializa o loop de jogo)
-     * 
-     * @param umaNave Nave do jogador
-     * @param umInimigo Nave inimiga do jogo
-     * @param umPlacar Placar do jogo
      */
-    public Cenario(Nave umaNave, Inimigo umInimigo, Placar umPlacar)
+    public Cenario()
     {                      
         // cria e define as caracteristas da janela da aplicação
         janela = new JFrame();
@@ -82,10 +78,10 @@ public class Cenario
         input = new InputHandler();
         janela.addKeyListener(input);
         
-        // trata a nave, o inimigo e o placar recebidos
-        nave = umaNave;
-        inimigo = umInimigo;
-        placar = umPlacar;
+        // cria a nave, o inimigo e o placar
+        nave = new Nave();
+        inimigo = new Inimigo();
+        placar = new Placar();
         try
         {
             // carrega as imagens usadas no jogo
