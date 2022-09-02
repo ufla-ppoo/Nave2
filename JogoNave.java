@@ -9,15 +9,9 @@ public class JogoNave
 {
     public static void main(String[] args)
     {
-		Nave nave;
-		Inimigo inimigo;
-		Placar placar;
 		Cenario cenario;
 		
-        nave = new Nave();
-        inimigo = new Inimigo();
-        placar = new Placar();                
-        cenario = new Cenario(nave, inimigo, placar);
+        cenario = new Cenario();
         
         cenario.executarLoopDeJogo();
     }
