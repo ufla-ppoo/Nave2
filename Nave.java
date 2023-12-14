@@ -1,3 +1,4 @@
+import java.util.Random;
 
 /**
  * Classe que representa uma nave do jogador no jogo
@@ -21,6 +22,9 @@ public class Nave
     // indica se a nave do jogador esta viva
     private boolean estaViva;
 
+    private String nomeJogador;
+    private Random random;
+    int campoDeForca;
     /**
      * Controi uma nave com as caracteristicas iniciais padrao
      */
@@ -29,7 +33,7 @@ public class Nave
         // tamanho padrao da nave
         largura = 50;
         altura = 50; 
-        
+        random = new Random();
         // velocidade da nave
         velocidade = 15;                
         
@@ -45,7 +49,9 @@ public class Nave
         // posição inicial da nave na tela
         posX = 10;
         posY = 200;
-        
+
+        campoDeForca = criarCAmpoDeForca();
+
         estaViva = true;
     }
     
@@ -107,7 +113,7 @@ public class Nave
     public String getTextoExibicao()
     {
         // atualmente nao retorna nada
-        return "";
+        return  nomeJogador + " - " + campoDeForca;
     }
     
     /**
@@ -178,8 +184,23 @@ public class Nave
     {
         if (estaViva)
         {
-            // morre
-            estaViva = false;
+            
+            if(campoDeForca > 0){
+                campoDeForca -= 10;
+            }else{
+                estaViva = false;
+            }
         }
+    }
+
+    public void alterarPiloto(String novoNome)
+    {
+        nomeJogador = novoNome;
+    }
+
+    public int criarCAmpoDeForca()
+    {
+        int valorCampo = random.nextInt(6);
+        return valorCampo * 10;
     }
 }

@@ -79,7 +79,9 @@ public class Cenario
         janela.addKeyListener(input);
         
         // cria a nave, o inimigo e o placar
+        String nomeJogador = JOptionPane.showInputDialog("Digite o nome do jogador:");
         nave = new Nave();
+        nave.alterarPiloto(nomeJogador);
         inimigo = new Inimigo();
         placar = new Placar();
         try
