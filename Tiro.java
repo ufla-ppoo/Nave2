@@ -1,3 +1,4 @@
+import java.util.Random;
 
 /**
  * Classe que representa um tiro dado pela nave do jogador ou pelo inimigo
@@ -17,7 +18,9 @@ public class Tiro
     // dimensoes do tiro
     private int largura;
     private int altura;
-    
+
+    private Random random;
+
     // indica se o tiro foi dado pelo inimigo ou, caso contrario, pela nave do jogador
     private boolean ehDoInimigo;
 
@@ -34,10 +37,15 @@ public class Tiro
         posX = x;
         posY = y;
         ehDoInimigo = tiroDoInimigo;
-        
-        // inicializa velocidade padrao
-        velocidade = 20;        
-    }
+        random = new Random();
+
+        if(ehDoInimigo){
+            int num = random.nextInt(4) +1;
+            velocidade = num * 20;
+        }else{
+            velocidade = 20;
+        }
+    }   
     
     /**
      * Retorna a posicao X atual do tiro
