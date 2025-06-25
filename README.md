@@ -104,3 +104,7 @@ Vamos fazer com que cada tiro do inimigo possa ter uma velocidade diferente.
 
 Jogue o jogo e teste a alteração
 - E aí, ficou mais divertido?
+
+### 7. Tratando Herança
+
+Foi criada a branch versao-com-heranca, implementando os conceitos de herança da Programação Orientada a Objetos. Enquanto a versão original não utilizava herança para fins didáticos, nesta versão foi criada uma superclasse abstrata Nave, que reúne todos os atributos e métodos comuns a qualquer nave do jogo. As classes NaveJogador e NaveInimiga herdam de Nave e mantêm apenas os comportamentos e atributos específicos de cada tipo de nave.

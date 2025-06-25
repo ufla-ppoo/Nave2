@@ -26,10 +26,10 @@ public class Cenario
     private int tempo = 0;
     
     // nave do jogador
-    private Nave nave;
+    private NaveJogador nave;
     
     // inimigo no jogo
-    private Inimigo inimigo;
+    private NaveInimiga inimigo;
     
     // conjunto de tiros existente no jogo (tanto do jogador quanto do inimigo)
     private ArrayList<Tiro> tiros;
@@ -58,12 +58,8 @@ public class Cenario
 
     /**
      * Constroi o cenario com a nave e o inimigo passados (cria os objetos fixos, mas nao inicializa o loop de jogo)
-     * 
-     * @param umaNave Nave do jogador
-     * @param umInimigo Nave inimiga do jogo
-     * @param umPlacar Placar do jogo
      */
-    public Cenario(Nave umaNave, Inimigo umInimigo, Placar umPlacar)
+    public Cenario()
     {                      
         // cria e define as caracteristas da janela da aplicação
         janela = new JFrame();
@@ -82,10 +78,10 @@ public class Cenario
         input = new InputHandler();
         janela.addKeyListener(input);
         
-        // trata a nave, o inimigo e o placar recebidos
-        nave = umaNave;
-        inimigo = umInimigo;
-        placar = umPlacar;
+        // cria a nave, o inimigo e o placar
+        nave = new NaveJogador();
+        inimigo = new NaveInimiga();
+        placar = new Placar();
         try
         {
             // carrega as imagens usadas no jogo
@@ -192,7 +188,7 @@ public class Cenario
             tratarColisaoTiros();
             
             // se o inimigo estiver vivo
-            if (inimigo.estaVivo())
+            if (inimigo.estaViva())
             {
                 // executa a inteligência artificial do inimigo
                 Tiro tiro = inimigo.executarIA();
@@ -322,14 +318,14 @@ public class Cenario
                 }
             }
             // se o tiro e da nave do jogador e se colidiu com o inimigo (vivo), trata o tiro tomado pelo inimigo e indica que o tiro sera excluído
-            else if (inimigo.estaVivo() && !tiro.getEhDoInimigo() && 
+            else if (inimigo.estaViva() && !tiro.getEhDoInimigo() && 
                      colisaoPontoRetangulo(tiro.getPosX(), tiro.getPosY(), tiro.getPosX()+tiro.getLargura(), tiro.getPosY()+tiro.getAltura(),
                                            inimigo.getPosX(), inimigo.getPosY(), inimigo.getPosX()+inimigo.getLargura(), inimigo.getPosY()+inimigo.getAltura()))
             {
                 inimigo.tomarTiro();                                                
                 tirosARemover.add(tiro);
                                 
-                if (!inimigo.estaVivo())
+                if (!inimigo.estaViva())
                 {
                     tempoUltimoInimigoMorto = tempo;
                     placar.contarMorteInimigo();
@@ -497,7 +493,7 @@ public class Cenario
          */
         private void desenharInimigo(Graphics g)
         {            
-            if (inimigo.estaVivo())
+            if (inimigo.estaViva())
             {
                 g.drawImage(imgInimigo, inimigo.getPosX(), inimigo.getPosY(),null);
             }
