@@ -150,15 +150,21 @@ public class Inimigo
     
     
     /**
-     * Realiza um tiro do inimigo, se ele estiver vivo
+     * Trata quando o inimigo atira, se ele estiver vivo
      * 
-     * @return Retorna o tiro criado, ou null se o inimigo nao atirou
+     * @return Retorna um vetor com os tiros criados, ou null se o inimigo nao atirou
      */
-    public Tiro atirar()
+    public Tiro[] atirar()
     {  
         if (estaVivo)
         {
-            return new Tiro(posX, posY + (int)(altura/2), true);
+            // Cria um tiro que sairá do meio do inimig (altura / 2)
+            Tiro tiro = new Tiro(posX, posY + (int)(altura/2), true);
+            // Cria um vetor de tiros e guarda nele o único tiro criado
+            Tiro[] tiros = new Tiro[1];
+            tiros[0] = tiro;
+            // Retorna o vetor de tiros
+            return tiros;
         }
         else
         {
@@ -182,9 +188,9 @@ public class Inimigo
      * 
      * @return retorna o tiro dado pelo inimigo (se ele tiver dado um), caso contrario retorna null
      */
-    public Tiro executarIA()
+    public Tiro[] executarIA()
     {
-        Tiro tiro = null;
+        Tiro[] tiros = null;
         
         if (estaVivo)
         {
@@ -195,11 +201,11 @@ public class Inimigo
             // atirar com a probabilidade de 1 em 15
             if (random.nextInt(15) < 1)
             {
-                tiro = atirar();
+                tiros = atirar();
             }
         }
         
-        return tiro;
+        return tiros;
     }
     
     /**

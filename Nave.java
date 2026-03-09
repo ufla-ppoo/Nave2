@@ -102,9 +102,9 @@ public class Nave
     }
     
     /**
-     * Retorna o texto a ser exibido próximo à nave
+     * Retorna um texto com uma informação associada à nave
      */
-    public String getTextoExibicao()
+    public String getInformacao()
     {
         // atualmente nao retorna nada
         return "";

@@ -88,7 +88,7 @@ public class Cenario
             imgNave = ImageIO.read(new File("imagens/nave.png"));
             imgInimigo = ImageIO.read(new File("imagens/inimigo.png"));
             imgMisselNave = ImageIO.read(new File("imagens/misselNave.png"));
-            imgMisselInimigo = ImageIO.read(new File("imagens/misselInimigo.png"));
+            imgMisselInimigo = ImageIO.read(new File("imagens/misselInimigo2.png"));
             imgExplosao = ImageIO.read(new File("imagens/explosao.png"));
             
             // altera as dimensoes da nave e do inimigo de acordo com as imagens carregadas
@@ -191,13 +191,15 @@ public class Cenario
             if (inimigo.estaVivo())
             {
                 // executa a inteligência artificial do inimigo
-                Tiro tiro = inimigo.executarIA();
+                Tiro[] novosTiros = inimigo.executarIA();
                 
                 // trata o tiro do inimigo caso ele o tenha feito
-                if (tiro != null)
+                if (novosTiros != null)
                 {
-                    tiro.alterarTamanho(imgMisselInimigo.getWidth(), imgMisselInimigo.getHeight());
-                    tiros.add(tiro);
+                    for (Tiro tiro: novosTiros) {
+                        tiro.alterarTamanho(imgMisselInimigo.getWidth(), imgMisselInimigo.getHeight());
+                        tiros.add(tiro);
+                    }
                 }
             }
             else // se o inimigo estiver morto
@@ -483,7 +485,7 @@ public class Cenario
             
             // desenha o texto de exibicao da nave            
             g.setColor(Color.WHITE);
-            g.drawString(nave.getTextoExibicao(), nave.getPosX(), nave.getPosY()-10);
+            g.drawString(nave.getInformacao(), nave.getPosX(), nave.getPosY()-10);
         }
         
         /**
