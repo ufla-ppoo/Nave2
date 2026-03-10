@@ -158,10 +158,11 @@ public class Inimigo
     {  
         if (estaVivo)
         {
-            // Cria um tiro que sairá do meio do inimig (altura / 2)
-            Tiro tiro = new Tiro(posX, posY + (int)(altura/2), true);
-            // Cria um vetor de tiros e guarda nele o único tiro criado
+            // Cria um vetor de tiros de uma única posição
             Tiro[] tiros = new Tiro[1];
+            // Cria um tiro que sairá do meio do inimig (altura / 2)
+            Tiro tiro = new Tiro(posX, posY + (int)(altura/2), true);            
+            // Guarda o tiro no vetor
             tiros[0] = tiro;
             // Retorna o vetor de tiros
             return tiros;
